@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["douglas.english@gmail.com"]
   spec.description   = %q{Converts Excel .xls and .xlsx files to CSV.}
   spec.summary       = %q{This GEM provides a wrapper to the http://poi.apache.org/ library for converting Excel (.xls and .xlsx) files to CSV.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/denglish/poi2csv"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
