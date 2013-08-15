@@ -26,11 +26,12 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.FilenameFilter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 /**
@@ -445,7 +446,7 @@ public class ToCSV {
      */
     private void saveCSVFile(File file)
                                      throws FileNotFoundException, IOException {
-        FileWriter fw = null;
+        OutputStreamWriter fw = null;
         BufferedWriter bw = null;
         ArrayList<String> line = null;
         StringBuffer buffer = null;
@@ -455,7 +456,7 @@ public class ToCSV {
             System.out.println("Saving the CSV file [" + file.getName() + "]");
 
             // Open a writer onto the CSV file.
-            fw = new FileWriter(file);
+            fw = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
             bw = new BufferedWriter(fw);
 
             // Step through the elements of the ArrayList that was used to hold
