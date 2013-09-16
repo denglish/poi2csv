@@ -539,11 +539,15 @@ public class ToCSV {
                     csvLine.add("");
                 }
                 else {
-                    if(cell.getCellType() != Cell.CELL_TYPE_FORMULA) {
-                        csvLine.add(this.formatter.formatCellValue(cell));
-                    }
-                    else {
+                    switch (cell.getCellType()) {
+                    case Cell.CELL_TYPE_FORMULA:
                         csvLine.add(this.formatter.formatCellValue(cell, this.evaluator));
+                        break;
+                    case Cell.CELL_TYPE_ERROR:
+                        csvLine.add("");
+                        break;
+                    default:
+                        csvLine.add(this.formatter.formatCellValue(cell));
                     }
                 }
             }
