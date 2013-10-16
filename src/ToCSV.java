@@ -541,7 +541,12 @@ public class ToCSV {
                 else {
                     switch (cell.getCellType()) {
                     case Cell.CELL_TYPE_FORMULA:
-                        csvLine.add(this.formatter.formatCellValue(cell, this.evaluator));
+                        try {
+                            csvLine.add(this.formatter.formatCellValue(cell, this.evaluator));
+                        }
+                        catch (Exception e) {
+                            csvLine.add(this.formatter.formatCellValue(cell));
+                        }
                         break;
                     case Cell.CELL_TYPE_ERROR:
                         csvLine.add("");
