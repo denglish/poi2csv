@@ -1,15 +1,24 @@
 require 'shellwords'
 require "poi2csv/version"
+require 'tempfile'
 
 module Poi2csv
 
-  def self.to_csv(input_file_path, output_folder_path, separator=nil, formating_convention=nil) 
+  Poi2csvException = Class.new(StandardError)
+
+  def self.to_csv(input_file_path, output_folder_path, separator=nil, formating_convention=nil)
     args = [input_file_path, output_folder_path, separator, formating_convention].reject { |v| v.nil? }
     args = args.map { |v| Shellwords.escape(v) }
-  	`java -cp #{classpath} ToCSV #{args * ' '}`
+    console_message = `java -cp #{classpath} ToCSV #{args * ' '}`
+    raise Poi2csvException.new, console_message unless output_file_created?(input_file_path, output_folder_path)
   end
 
   def self.classpath
-  	@_classpath ||= File.expand_path(File.join(File.dirname(__FILE__),'*')) + File::PATH_SEPARATOR + File.expand_path(File.join(File.dirname(__FILE__),'..', 'classes'))
+    @_classpath ||= File.expand_path(File.join(File.dirname(__FILE__),'*')) + File::PATH_SEPARATOR + File.expand_path(File.join(File.dirname(__FILE__),'..', 'classes'))
+  end
+
+  def self.output_file_created?(input_file_path, output_folder_path)
+    output_file = File.join(output_folder_path , File.basename(input_file_path, '.*')) + '.csv'
+    File.exists?(output_file)
   end
 end
