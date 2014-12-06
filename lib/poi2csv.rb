@@ -1,6 +1,5 @@
 require 'shellwords'
 require "poi2csv/version"
-require 'tempfile'
 
 module Poi2csv
 
