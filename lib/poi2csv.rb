@@ -13,7 +13,7 @@ module Poi2csv
     raise Poi2csvException.new, console_message unless output_file_created?(input_file_path, output_folder_path)
   end
   
-  def supports_extension?(extension)
+  def self.supports_extension?(extension)
     SUPPORTED_EXTENSIONS.include?(extension)
   end
 
