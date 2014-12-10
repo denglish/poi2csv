@@ -12,6 +12,10 @@ module Poi2csv
     console_message = `java -cp #{classpath} ToCSV #{args * ' '}`
     raise Poi2csvException.new, console_message unless output_file_created?(input_file_path, output_folder_path)
   end
+  
+  def supports_extension?(extension)
+    SUPPORTED_EXTENSIONS.include?(extension)
+  end
 
   def self.classpath
     @_classpath ||= File.expand_path(File.join(File.dirname(__FILE__),'*')) + File::PATH_SEPARATOR + File.expand_path(File.join(File.dirname(__FILE__),'..', 'classes'))
